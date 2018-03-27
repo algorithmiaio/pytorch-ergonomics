@@ -10,7 +10,7 @@ class TorchExecutionError(Exception):
     def __str__(self):
         return repr(self.value)
 
-## This will work as intended for algorithms that follow the standard project hierarchy.
+# This will work as intended for algorithms that follow the standard project hierarchy.
 # input_data - a json serializable dictionary containing input data for your algorithm
 # entrypoint_file - the unix path to your main execution script, starting from the root directory. eg; 'src/runable_example.py'
 # function - the entry function you want to execute, this function should accept your json dictionary as input, and return an output dictionary.
