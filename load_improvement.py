@@ -18,6 +18,7 @@ class TorchExecutionError(Exception):
 def execute_workaround(input_data, entrypoint_file, function):
     os.environ['LD_PRELOAD'] = '/usr/lib/x86_64-linux-gnu/libgfortran.so.3'
     os.environ['LC_ALL'] = 'C'
+    os.environ['OMP_NUM_THREADS'] = '1'
     prepare_file(entrypoint_file, function)
     _, in_filename = tempfile.mkstemp()
     _, out_filename = tempfile.mkstemp()
@@ -65,7 +66,8 @@ def runShellCommand(commands, cwd=None):
     err_str = str(error.decode('utf-8'))
     print(out_str)
     if "TypeError: \'NoneType\' object is not callable".encode() in error:
-        sleep(2)
+        sleep(1)
         return runShellCommand(commands, cwd)
-    if error:
+    elif error:
         raise TorchExecutionError(err_str)
+    return output
