@@ -2,7 +2,7 @@ import json
 import os
 import tempfile
 from subprocess import PIPE, Popen
-
+from time import sleep
 class TorchExecutionError(Exception):
     def __init__(self, value):
         self.value = value
@@ -64,5 +64,8 @@ def runShellCommand(commands, cwd=None):
     out_str = str(output.decode('utf-8'))
     err_str = str(error.decode('utf-8'))
     print(out_str)
+    if "TypeError: \'NoneType\' object is not callable".encode() in error:
+        sleep(2)
+        return runShellCommand(commands, cwd)
     if error:
         raise TorchExecutionError(err_str)
