@@ -1,7 +1,9 @@
-"""These functions are ergonomics improvements for pytorch.
+"""
+These functions are ergonomics improvements for pytorch.
    By saving the source code along with the model definitions,
    you can reuse your models easily in new modules without needing to redefine
-   everything from scratch."""
+   everything from scratch.
+   """
 import torch
 import tempfile
 import sys

@@ -6,7 +6,7 @@ model_path = "/tmp/saved_model_and_source.zip"
 
 class ExecutionTest(unittest.TestCase):
     def execute(self):
-        from load_improvement import execute_workaround
+        from algorithm_ergonomics import execute_workaround
         input = {'array': [1.2334]}
         entrypoint_file = 'src/runable_example.py'
         entry_function = 'execute_torch'
@@ -16,7 +16,7 @@ class ExecutionTest(unittest.TestCase):
 class SavingTest(unittest.TestCase):
     def execute(self):
         from src.runable_example import PredefNet
-        from model_improvement import save_model
+        from model_ergonomics import save_model
         import os
         import torch
         net = PredefNet()
@@ -27,7 +27,7 @@ class SavingTest(unittest.TestCase):
 
 class LoadingTest(unittest.TestCase):
     def execute(self):
-        from model_improvement import load_model
+        from model_ergonomics import load_model
         import torch
         network = load_model(model_path)
         data = torch.autograd.Variable(torch.FloatTensor([1.25]))
