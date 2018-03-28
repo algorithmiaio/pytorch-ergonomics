@@ -1,5 +1,5 @@
 # pytorch-algorithmia
-Improving the pytorch experience on [Algorithmia][https://algorithmia.com/] and beyond.
+Improving the pytorch experience on [Algorithmia](https://algorithmia.com/]) and beyond.
 
 *Caveat - The ergonomic changes in this package have been checked for compatibilty with python 3.5.4, or the `python3` language on Algorithmia.
 Some components might not work for other versions.*
@@ -23,7 +23,7 @@ If you're in need of the `torchvision` module, you'll probably want to use our c
 
 https://s3.amazonaws.com/algorithmia-wheels/torchvision-0.2.0-py2.py3-none-any.whl
 
- For a concrete example of how to apply this to an algorithm, look at our [pytorchDemo][https://algorithmia.com/algorithms/algorithmiahq/pytorchDemo].
+ For a concrete example of how to apply this to an algorithm, look at our [pytorchDemo](https://algorithmia.com/algorithms/algorithmiahq/pytorchDemo).
 
 ## Improving the model processing experience
 The pytorch `torch.load()` and `torch.save()` tools are great at what they do, serializing big complex DAGs with potentially
