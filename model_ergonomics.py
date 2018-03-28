@@ -19,7 +19,6 @@ output_path - the local system filename you'd like to save your network module a
 
 """
 def save_model(model, source_path, output_path):
-    # data = {'model': model}
     _, model_temp = tempfile.mkstemp()
     torch.save(model, model_temp)
     source_files = []
@@ -42,8 +41,7 @@ local_file_path - the path to the zipped model & source definitions on your loca
 """
 
 
-def load_model(local_file_path):
-    temp_loc = '/tmp'
+def load_model(local_file_path, temp_loc):
     with zipfile.ZipFile(local_file_path) as zip:
         zip.extractall(temp_loc)
     sys.path.insert(0, temp_loc)

@@ -2,7 +2,7 @@ import unittest
 
 source_file = "src"
 model_path = "/tmp/saved_model_and_source.zip"
-
+temp_directory = "/tmp"
 
 class ExecutionTest(unittest.TestCase):
     def execute(self):
@@ -29,7 +29,7 @@ class LoadingTest(unittest.TestCase):
     def execute(self):
         from model_ergonomics import load_model
         import torch
-        network = load_model(model_path)
+        network = load_model(model_path, temp_directory)
         data = torch.autograd.Variable(torch.FloatTensor([1.25]))
         output = network.forward(data)
         print(output.data)

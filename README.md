@@ -20,5 +20,19 @@ Pytorch works on Algorithmia out of the box, however the default pytorch wheel f
 
  For a concrete example of how to apply this to an algorithm, look at our [pytorchDemo][https://algorithmia.com/algorithms/algorithmiahq/pytorchDemo].
 
+## Improving the model processing experience
+The pytorch `torch.load()` and `torch.save()` tools are great at what they do, serializing big complex DAGs with potentially
+ millions of super critical arrays can be pretty tricky. A design decision was made where the default torch model loader protocol does _not_ save the
+ network definitions required to execute your code along with the model itself.
 
- Let us know what you think! As we find new ways of improving the pytorch experience this package will evolve.
+In most instances, using these two tools with your static source code is more than reasonable.
+Most of the time, your model definitions are static and you're purely looking
+to explore ways to improve your model accuracy and perform analysis on your training process.
+In production however, this changes dramatically - backwards compatability matters *alot*.
+
+The `model_ergonmics` script is designed to address this, and allows you to save your network definition module
+along with your torch model. This means that your updated algorithm can still work with torch models that might
+not have been backwards compatible historically! You can even import your torch model into an algorithm and run a
+forward pass without having to copy your source code by hand, making the cross-algorithm model loading experience DRY (Don't Repeat Yourself!)
+
+Concrete example for this is coming, for a simple example please check out our `tests` file.
