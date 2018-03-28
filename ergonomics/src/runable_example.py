@@ -18,3 +18,15 @@ def execute_torch(input_data):
         output_array.append(float(result))
     output = {'result': output_array}
     return output
+
+
+if __name__ == "__main__":
+    import sys
+    import json
+    input_filename = sys.argv[1]
+    output_filename = sys.argv[2]
+    with open(input_filename) as f:
+        input = json.loads(f.read())
+    output = execute_torch(input)
+    with open(output_filename, 'w') as f:
+        json.dump(output, f)
