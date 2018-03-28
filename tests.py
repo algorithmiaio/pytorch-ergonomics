@@ -1,8 +1,7 @@
 import unittest
 
-source_file = "src/runable_example.py"
-model_path = "/tmp/saved_model.zip"
-module_name = "LoadedNetwork"
+source_file = "src"
+model_path = "/tmp/saved_model_and_source.zip"
 
 
 class ExecutionTest(unittest.TestCase):
@@ -21,7 +20,7 @@ class SavingTest(unittest.TestCase):
         import os
         import torch
         net = PredefNet()
-        data = torch.autograd.Variable([1.25], requires_grad=False)
+        data = torch.autograd.Variable(torch.FloatTensor([1.25]))
         _ = net.forward(data)
         output_path = save_model(net, source_file, model_path)
         self.assertTrue(os.path.exists(output_path))
@@ -31,10 +30,7 @@ class LoadingTest(unittest.TestCase):
         from model_improvement import load_model
         import torch
         network = load_model(model_path)
-        data = torch.autograd.Variable(torch.FloatTensor([1.25]), requires_grad=False)
+        data = torch.autograd.Variable(torch.FloatTensor([1.25]))
         output = network.forward(data)
         print(output.data)
         self.assertGreaterEqual(len(list(output.data)), 0)
-
-if __name__ == "__main__":
-    unittest.main()

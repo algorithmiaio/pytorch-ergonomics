@@ -1,3 +1,9 @@
+"""
+pytorch is powerful ML library with tons of uses, but the default python wheels are heavy and on algorithmia that heaviness results in slow algorithm execution.
+Combining the execute_workaround function with any of our precompiled, slim pytorch wheels can yield a dramatic improvement in performance,
+particularly for GPU pytorch algorithms!
+"""
+
 import json
 import os
 import tempfile
@@ -10,11 +16,12 @@ class TorchExecutionError(Exception):
     def __str__(self):
         return repr(self.value)
 
-# This will work as intended for algorithms that follow the standard project hierarchy.
-# input_data - a json serializable dictionary containing input data for your algorithm
-# entrypoint_file - the unix path to your main execution script, starting from the root directory. eg; 'src/runable_example.py'
-# function - the entry function you want to execute, this function should accept your json dictionary as input, and return an output dictionary.
-
+""" 
+This will work as intended for algorithms that follow the Algorithmia standard project hiearchy.
+input_data - a json serializable dictionary containing input data for your algorithm
+entrypoint_file - the unix path to your main execution script, starting from the project root directory. eg; 'src/runable_example.py'
+function - the entry function you want to execute, this function should accept your json dictionary as input, and return an output dictionary.
+"""
 def execute_workaround(input_data, entrypoint_file, function):
     os.environ['LD_PRELOAD'] = '/usr/lib/x86_64-linux-gnu/libgfortran.so.3'
     os.environ['LC_ALL'] = 'C'
@@ -27,7 +34,6 @@ def execute_workaround(input_data, entrypoint_file, function):
     with open(in_filename, 'w') as f:
         json.dump(input_data, f)
     root_path = os.path.realpath(os.getcwd())
-    # runShellCommand(['/opt/anaconda3/bin/python', 'src/runable_example.py', in_filename, out_filename], cwd=root_path)
     runShellCommand(['python3', entrypoint_file, in_filename, out_filename], cwd=root_path)
     with open(out_filename) as f:
         data = f.read()
