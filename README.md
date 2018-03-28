@@ -1,5 +1,5 @@
 # pytorch-ergonomics
-Improving the pytorch experience on [Algorithmia](https://algorithmia.com/]) and beyond.
+Improving the pytorch experience on [Algorithmia](https://algorithmia.com]) and beyond.
 
 *Caveat - The ergonomic changes in this package have been checked for compatibilty with python 3.5.4, or the `python3` language on Algorithmia.
 Some components might not work for other versions.*
