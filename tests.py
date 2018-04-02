@@ -1,8 +1,7 @@
 import unittest
-
-source_module = "ergonomics/src"
 execution_script = "ergonomics/src/runable_example.py"
-model_path = "/tmp/saved_model_and_source.zip"
+mod_path = "ergonomics/src"
+model_path = "/tmp/saved_model_and_source.t7"
 temp_directory = "/tmp"
 
 class ExecutionTest(unittest.TestCase):
@@ -23,7 +22,7 @@ class SavingTest(unittest.TestCase):
         net = PredefNet()
         data = torch.autograd.Variable(torch.FloatTensor([1.25]))
         _ = net.forward(data)
-        output_path = save_model(net, source_module, model_path)
+        output_path = save_model(net, mod_path, model_path)
         self.assertTrue(os.path.exists(output_path))
 
 class LoadingTest(unittest.TestCase):
