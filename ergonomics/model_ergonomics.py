@@ -3,7 +3,8 @@ These functions are ergonomics improvements for pytorch.
    By saving the source code along with the model definitions,
    you can reuse your models easily in new modules without needing to redefine
    everything from scratch.
-   """
+"""
+
 import torch
 from . import torch_model_ops
 import tempfile
@@ -15,19 +16,19 @@ Saves a model file along with it's source module.
 If your definition is not in a separate module, passing `src` should work in a typical
 Algorithmia pythonic directory stucture.
 model - the pytorch network module object that you wish to save
-source path - the relative path to the module containing your network definition
+input_mod_path - the pythonic module path to your network definition module.
 output_path - the local system filename you'd like to save your network module as.
 
 """
 
 default_mod_path = 'ergo-pytorch'
 
-def save_model(model: torch.nn.Module, source_path: str, output_path: str):
+def save_model(model: torch.nn.Module, input_mod_path: str, output_path: str):
     _, model_temp = tempfile.mkstemp()
-    input_mod_path = source_path.replace('/', '.')
+    input_system_path = input_mod_path.replace('.', '/')
     torch_model_ops.save(model, input_mod_path, default_mod_path, model_temp)
     source_files = []
-    for root, dirs, files in os.walk(source_path):
+    for root, dirs, files in os.walk(input_system_path):
         for file in files:
             true_path = os.path.join(root, file)
             false_path = os.path.join(default_mod_path, file)
