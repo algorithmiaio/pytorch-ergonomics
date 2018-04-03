@@ -1,2 +1,5 @@
 .idea
 *.pyc
+dist
+build
+ergo_pytorch.egg-info
