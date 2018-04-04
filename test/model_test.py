@@ -9,19 +9,19 @@ temp_directory = "/tmp"
 class ModelTest(unittest.TestCase):
     def test_a_saving(self):
         from ergonomics.src.runable_example import PredefNet
-        from ergonomics.model_ergonomics import save_model
+        from ergonomics.serialization import save_portable
         import os
         import torch
         net = PredefNet()
         data = torch.autograd.Variable(torch.FloatTensor([1.25]))
         _ = net.forward(data)
-        output_path = save_model(net, mod_path, model_path)
+        output_path = save_portable(net, mod_path, model_path)
         self.assertTrue(os.path.exists(output_path))
 
     def test_b_loading(self):
-        from ergonomics.model_ergonomics import load_model
+        from ergonomics.serialization import load_portable
         import torch
-        network = load_model(model_path, temp_directory)
+        network = load_portable(model_path, temp_directory)
         data = torch.autograd.Variable(torch.FloatTensor([1.25]))
         output = network.forward(data)
         print(output.data)

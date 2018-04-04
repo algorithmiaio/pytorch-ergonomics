@@ -3,12 +3,11 @@ from os.path import abspath, dirname
 
 #This does _require_ torch, but torch does not exist on pypi.
 python_requirements = [
-    'dill>=0.2.7.1',
 ]
 
 setup(
     name='ergo-pytorch',
-    version='1.0.4',
+    version='1.1.0',
     description='making torch even better.',
     author='Algorithmia',
     maintainer='Algorithmia',

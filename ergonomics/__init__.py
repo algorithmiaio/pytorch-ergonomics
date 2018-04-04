@@ -1,1 +1,1 @@
-from . import algorithm_ergonomics
+from . import algorithmia
