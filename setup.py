@@ -7,7 +7,7 @@ python_requirements = [
 
 setup(
     name='ergo-pytorch',
-    version='1.1.0',
+    version='1.1.1',
     description='making torch even better.',
     author='Algorithmia',
     maintainer='Algorithmia',
