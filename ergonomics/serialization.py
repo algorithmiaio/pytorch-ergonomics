@@ -55,17 +55,30 @@ def _save_portable(obj: torch.nn.Module, input_mod_path: str, model_save_path: s
     with open(model_save_path, 'wb') as f:
         f.write(serialized_model)
 
-"""
-Loads a model and source definitions that were saved using the `save_model` function above.
-assumes that you're using linux, and that `/tmp` is an available working directory.
-local_file_path - the path to the zipped model & source definitions on your local system.
-"""
-
-
-def load_portable(local_file_path: str, temp_location: str):
+def load_portable(local_file_path, temp_location="/tmp", path_delimiter='/'):
+    """
+    Portably deserializes a portable serialized torch model saved with "save_portable". The magic here is
+    you don't need the original network definition code in order to load this network and utilize it, as the
+    necessary source code is provided along with the network.
+    Args:
+        local_file_path: The local system file path to your portable model object.
+        temp_location: a scratchspace location to use for the unzip/depickling process, if you're
+        using a non debian based kernel (or wholy different operating system) you'll want to change this.
+        path_delimiter: how your operating system delimits filepaths, the default assumes you're using a unix kernel.
+    Example:
+         # Load a portable model
+         local_portable_model_path = "/tmp/myModel.zip"
+         model = torch.load_portable(local_portable_model_path)
+         output = model.forward(...)
+    """
     with zipfile.ZipFile(local_file_path) as zip:
         zip.extractall(temp_location)
     sys.path.insert(0, temp_location)
-    with open("{}/model.t7".format(str(temp_location)), 'rb') as f:
-        model = pickle.load(f)
+    model = _load_portable("{}{}model.t7".format(str(temp_location), path_delimiter))
     return model
+
+
+def _load_portable(model_path):
+    with open(model_path, 'rb') as f:
+        mod = pickle.load(f)
+    return mod
